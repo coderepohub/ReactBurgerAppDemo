@@ -6,12 +6,30 @@ const burger = (props)=>{
     //props what we are recieving is an object not an array, so what we have to do is 
     //we have to transform the keys from an object to an array
     //For this we will use the JS default Object class which has keys method and it will give an array of keys
-    //const transformedIngredients = Object.keys()
+    //Here we will use map function , which in return executes on each element
+    //Inside that we will transform the string value into an array with as many elements as we have in ingredient elements
+    //eg. cheese:2 means two cheese ingredients
+    let transformedIngredients = Object.keys(props.ingredients)
+    .map(ingKeyArg=>{
+        //Create an Array 
+        console.log('log -1 ',ingKeyArg);
+        return[...Array(props.ingredients[ingKeyArg])].map((_,index)=>{
+        console.log('log -2 ',ingKeyArg+index);
+            return <BurgerIngredient key ={ingKeyArg+index} type={ingKeyArg}/>;
+        })
+    })//Above will return array of array now we will reduce it to single array
+        .reduce((arr,el)=>{
+            return arr.concat(el)
+        },[]);
+
+console.log('tra ',transformedIngredients);
+    if(transformedIngredients.length===0){
+        transformedIngredients = <p>Please Start adding Ingredients!</p>
+    }
     return(
         <div className={classes.Burger}>
             <BurgerIngredient type='bread-top'/>
-            <BurgerIngredient type='cheese'/>
-            <BurgerIngredient type='meat'/>
+           {transformedIngredients}
             <BurgerIngredient type='bread-bottom'/>
         </div>
     );
