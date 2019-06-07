@@ -1,17 +1,27 @@
-import React from 'react'
+import React,{Component} from 'react'
 import classes from './Modal.module.css';
 import Backdrop from '../Backdrop/Backdrop';
-import Aux from '../../../hoc/AuxControl';
-const modal = (props) =>(
+import Aux from '../../../hoc/AuxControl/AuxControl';
+class Modal extends Component{
+    shouldComponentUpdate(nextProps,nextState){
+        return nextProps.showing!==this.props.showing;
+    }
+    componentWillUpdate(){
+        console.log("Component is gng to be updated");
+    }
+    render(){
+        return(
     <Aux>
-        <Backdrop show={props.showing} clicked ={props.closeModal}/>
+        <Backdrop show={this.props.showing} clicked ={this.props.closeModal}/>
     <div className = {classes.Modal} style={{
-        transform:props.showing ? 'translateY(0)':'translateY(-100vh)',
-        opacity:props.showing?'1':'0'
+        transform:this.props.showing ? 'translateY(0)':'translateY(-100vh)',
+        opacity:this.props.showing?'1':'0'
         }}>
-        {props.children}
+        {this.props.children}
     </div>
     </Aux>
 );
+    }
+    }
 
-export default modal;
+export default Modal;

@@ -12,9 +12,7 @@ const burger = (props)=>{
     let transformedIngredients = Object.keys(props.ingredients)
     .map(ingKeyArg=>{
         //Create an Array 
-        console.log('log -1 ',ingKeyArg);
         return[...Array(props.ingredients[ingKeyArg])].map((_,index)=>{
-        console.log('log -2 ',ingKeyArg+index);
             return <BurgerIngredient key ={ingKeyArg+index} type={ingKeyArg}/>;
         })
     })//Above will return array of array now we will reduce it to single array
@@ -22,7 +20,6 @@ const burger = (props)=>{
             return arr.concat(el)
         },[]);
 
-console.log('tra ',transformedIngredients);
     if(transformedIngredients.length===0){
         transformedIngredients = <p>Please Start adding Ingredients!</p>
     }
